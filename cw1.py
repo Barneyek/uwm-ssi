@@ -67,6 +67,6 @@ for index in indexes:
         print("{} Max atrybutu - {}, Min atrybutu - {}".format("a{}".format(str(index + 1)), max(listAttributes),
                                           min(listAttributes)))
         unique("a{}".format(index + 1), listAttributes)
-
-
+        print("Odchylenie standardowe atrybutu {}, wynosi: {}".format(index + 1, statistics.stdev(listAttributes)))
+        
 

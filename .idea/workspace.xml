@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="324fa678-b327-4fdf-af9e-be51e207e63e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cw1.py" beforeDir="false" afterPath="$PROJECT_DIR$/cw1.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -124,7 +123,7 @@
       <option name="presentableId" value="Default" />
       <updated>1576101271482</updated>
       <workItem from="1576101273447" duration="1076000" />
-      <workItem from="1576180240906" duration="3448000" />
+      <workItem from="1576180240906" duration="4012000" />
     </task>
     <servers />
   </component>
@@ -145,7 +144,7 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/uwm_ssi$cw1.coverage" NAME="cw1 Coverage Results" MODIFIED="1576183687678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/uwm_ssi$cw1.coverage" NAME="cw1 Coverage Results" MODIFIED="1576184247430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/uwm_ssi$cw01.coverage" NAME="cw01 Coverage Results" MODIFIED="1576102039979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/uwm_ssi$test.coverage" NAME="test Coverage Results" MODIFIED="1576180740444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
