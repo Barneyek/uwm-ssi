@@ -40,7 +40,19 @@ for x in f:
     else:
         tab[line[-1]] = [line]
 
-
 for key in tab:
     print("{} - liczba obiektów w klasach: {}".format(key, len(tab[key])))
+
+for index in indexes:
+    listAttributes = []
+    listAttributesByKey = {}
+
+    for key in tab:
+        listPom = []
+        for value in tab[key]:
+            listAttributes.append(value[index])
+            listPom.append(value[index])
+        listAttributesByKey[key] = listPom
+        print("{} Max atrybutu - {}, Min atrybutu - {}".format("a{}".format(str(index + 1)), max(listAttributes),
+                                          min(listAttributes)))
 
