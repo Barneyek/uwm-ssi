@@ -43,6 +43,17 @@ for x in f:
 for key in tab:
     print("{} - liczba obiektów w klasach: {}".format(key, len(tab[key])))
 
+def unique(attribute, list):
+    uniqueList = []
+    for i in list:
+        if i not in uniqueList:
+            uniqueList.append(i)
+
+    print("Liczba unikalnych wartości atrubutu {}: {}".format(attribute, len(uniqueList)))
+    print("Lista unikalnych wartości atrybutu {}".format(attribute))
+    # for element in uniqueList:
+    print(uniqueList)
+    
 for index in indexes:
     listAttributes = []
     listAttributesByKey = {}
@@ -55,4 +66,7 @@ for index in indexes:
         listAttributesByKey[key] = listPom
         print("{} Max atrybutu - {}, Min atrybutu - {}".format("a{}".format(str(index + 1)), max(listAttributes),
                                           min(listAttributes)))
+        unique("a{}".format(index + 1), listAttributes)
+
+
 
