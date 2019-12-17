@@ -3,20 +3,20 @@ import statistics
 f = open("diabetes.txt", "r")
 f2 = open("diabetes-type.txt", "r")
 
-tab = {}
-tab2 = {}
+dictionary = {}
+dictionary2 = {}
 
 for x in f2:
     line = x
     line = line.strip()
     line = line.split(" ")
-    tab2[line[0]] = line[1]
+    dictionary2[line[0]] = line[1]
 
 indexes = []
 i = 0
 
-for key in tab2:
-    if tab2[key] == "n":
+for key in dictionary2:
+    if dictionary2[key] == "n":
         indexes.append(i)
     i += 1
 
@@ -35,13 +35,13 @@ for x in f:
         n += 1
     line = lineCopy
 
-    if line[-1] in tab:
-        tab[line[-1]] = tab.get(line[-1]) + [line]
+    if line[-1] in dictionary:
+        dictionary[line[-1]] = dictionary.get(line[-1]) + [line]
     else:
-        tab[line[-1]] = [line]
+        dictionary[line[-1]] = [line]
 
-for key in tab:
-    print("{} - liczba obiektów w klasach: {}".format(key, len(tab[key])))
+for key in dictionary:
+    print("{} - liczba obiektów w klasach: {}".format(key, len(dictionary[key])))
 
 def unique(attribute, list):
     uniqueList = []
@@ -58,9 +58,9 @@ for index in indexes:
     listAttributes = []
     listAttributesByKey = {}
 
-    for key in tab:
+    for key in dictionary:
         listPom = []
-        for value in tab[key]:
+        for value in dictionary[key]:
             listAttributes.append(value[index])
             listPom.append(value[index])
         listAttributesByKey[key] = listPom
@@ -68,5 +68,8 @@ for index in indexes:
                                           min(listAttributes)))
         unique("a{}".format(index + 1), listAttributes)
         print("Odchylenie standardowe atrybutu {}, wynosi: {}".format(index + 1, statistics.stdev(listAttributes)))
-        
+        for key in listAttributesByKey:
+            print("Odchylenie standardowe atrybutu {} w klasie decyzyjnej {}, wynosi: {}".format(index + 1, key,                                                                                             statistics.stdev(
+                                                                                                   listAttributesByKey[                                                                                                       key])))
+
 
