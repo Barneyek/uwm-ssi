@@ -93,3 +93,56 @@ class Param:
 
     def getParam(self):
             return self.param
+
+def listAttributesAndTheirNumbers(self):
+    lines = splitIntoLines(self)
+    myArray = []
+    for line in lines:
+        myArray.append(line.split(" "))
+    return myArray
+
+def printFile(self):
+    f = open(self)
+    print(f.read())
+
+def splitIntoLines(self):
+    return re.split(r'\n', self)
+
+def delLastColumnAndRow(self):
+    for i in range(len(self)):
+        del self[i][len(self[i]) - 1]
+    del self[len(self) - 1]
+    return self
+
+def getDecisions(array):
+    result = []
+    for i in range(len(array)):
+        if not array[i][len(array[i]) - 1] in result:
+            result.append(array[i][len(array[i]) - 1])
+    return result
+
+def getIndexOfDecision(array):
+    decisions = getDecisions(array)
+    result = []
+    for x in decisions:
+        decisionObject = Decision()
+        decisionObject.setDecision(x)
+        list = []
+        for i in range(len(array)):
+            if array[i][len(array[i]) - 1] == x:
+                list.append(i)
+        decisionObject.setIndexList(list)
+        result.append(decisionObject)
+    return result
+
+class NaiwnyKlasyfikatorBayesa():
+    def main(self):
+        fDec = open("result/dec_bayes.txt", "w+")
+        lines = listAttributesAndTheirNumbers(open("australian_TST.txt").read())
+        australianTRN =listAttributesAndTheirNumbers(open("australian_TRN.txt").read())
+        lines = delLastColumnAndRow(lines)
+        australianTRN = delLastColumnAndRow(australianTRN)
+        getTrnDecisions = getIndexOfDecision(australianTRN)
+
+if __name__ == "__main__":
+    NaiwnyKlasyfikatorBayesa.main("args")
