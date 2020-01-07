@@ -188,6 +188,105 @@ def countParam(array, indexOfDecisions, trnArray):
                 elem.setParam(elem.getParam() + ((1 / 2) * (1 / length)))
     return listOfParam
 
+def getListDecisionsTST(array):
+    result = []
+    for row in array:
+        result.append(row[len(row) - 1])
+    return result
+
+def unique(list1):
+    unique_list = []
+    for x in list1:
+        if x not in unique_list:
+            unique_list.append(x)
+    return unique_list
+
+def areParamsInLoopEqual(paramsInLoop):
+    x = []
+    for elem in paramsInLoop:
+        x.append(elem.getParam())
+    if len(unique(x)) == 1:
+        return True
+    return False
+
+def numOfCorrectlyClassified(listOfCountedParams, listOfDecisionsInTST, textFile):
+    listClassifications = []
+    i = 1
+    listOfParamsInLoop = []
+    properlyClassified = 0
+    classified = 0
+
+    for uDecision in unique(listOfDecisionsInTST):
+        classification = Classification()
+        classification.setCObject(uDecision)
+        classification.setListOfClassified(0)
+        classification.setListOfClassifiedCorrectly(0)
+        listClassifications.append(classification)
+
+    enum = 0
+    for countedParam in listOfCountedParams:
+        xObject = "x" + str(i)
+        if xObject == countedParam.getTestObject():
+            listOfParamsInLoop.append(countedParam)
+
+        if xObject != listOfCountedParams[enum + 1].getTestObject() or \
+                len(listOfDecisionsInTST) == 1 and len(listOfParamsInLoop) == 2:
+            cObject = ""
+            param = 0
+            highestX = ""
+            listOfParamsInLoopIterator = 0
+            for elem in listOfParamsInLoop:
+                if param < elem.getParam():
+                    param = elem.getParam()
+                    highestX = elem.getTestObject()
+                    cObject = elem.getCObject()
+                    listOfParamsInLoopIterator += 1
+
+            if listOfParamsInLoopIterator > 1:
+                textFile.write("Parametr c==" + listOfParamsInLoop[0].getCObject() + "<" + "Parametr C==" + listOfParamsInLoop[
+                    len(listOfParamsInLoop)-1].getCObject() + " dla obiektu " + highestX)
+            if listOfParamsInLoopIterator <= 1:
+                textFile.write("Parametr c==" + listOfParamsInLoop[0].getCObject() + ">" + "Parametr C==" + listOfParamsInLoop[
+                    len(listOfParamsInLoop)-1].getCObject() + " dla obiektu " + highestX)
+
+            if areParamsInLoopEqual(listOfParamsInLoop):
+                randomParam = random.choice(listOfParamsInLoop)
+                if randomParam.getCObject() == listOfDecisionsInTST[i - 1]:
+                    textFile.write(" decyzja jest zgodna z ukryta decyzja eksperta (decyzja eksperta == " +
+                                   listOfDecisionsInTST[i - 1] + ")\n")
+                    for element in listClassifications:
+                        if element.getCObject() == randomParam.getCObject():
+                            element.setListOfClassifiedCorrectly(element.getListOfClassifiedCorrectly() + 1)
+                            element.setListOfClassified(element.getListOfClassified() + 1)
+
+                else:
+                    textFile.write(" decyzja jest nie zgodna z ukryta decyzja eksperta (decyzja eksperta == " +
+                                   listOfDecisionsInTST[i - 1] + ")\n")
+                    for element in listClassifications:
+                        if element.getCObject() == randomParam.getCObject():
+                            element.setListOfClassified(element.getListOfClassified() + 1)
+            else:
+                if cObject == listOfDecisionsInTST[i - 1]:
+                    textFile.write("decyzja jest zgodna z ukryta decyzja eksperta (decyzja eksperta == " +
+                                   listOfDecisionsInTST[i - 1] + ")\n")
+                    for element in listClassifications:
+                        if element.getCObject() == cObject:
+                            element.setListOfClassifiedCorrectly(element.getListOfClassifiedCorrectly() + 1)
+                            element.setListOfClassified(element.getListOfClassified() + 1)
+                else:
+                    textFile.write(" decyzja jest nie zgodna z ukryta decyzja eksperta (decyzja eksperta == " +
+                                   listOfDecisionsInTST[i - 1] + ")\n")
+                    for element in listClassifications:
+                        if element.getCObject() == cObject:
+                            element.setListOfClassified(element.getListOfClassified() + 1)
+            i += 1
+            listOfParamsInLoop = []
+        enum += 1
+        if enum == len(listOfCountedParams) - 1:
+            enum = 0
+
+    return listClassifications
+
 class NaiwnyKlasyfikatorBayesa():
     def main(self):
         fDec = open("result/dec_bayes.txt", "w+")
@@ -197,6 +296,7 @@ class NaiwnyKlasyfikatorBayesa():
         australianTRN = delLastColumnAndRow(australianTRN)
         getTrnDecisions = getIndexOfDecision(australianTRN)
         countedParams = countParam(lines, getTrnDecisions, australianTRN)
+        classified = numOfCorrectlyClassified(countedParams, getListDecisionsTST(lines), fDec)
 
 if __name__ == "__main__":
     NaiwnyKlasyfikatorBayesa.main("args")
