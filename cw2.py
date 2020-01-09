@@ -287,6 +287,20 @@ def numOfCorrectlyClassified(listOfCountedParams, listOfDecisionsInTST, textFile
 
     return listClassifications
 
+def getGlobalAccuracy(classificationList):
+    sumOfCorrectlyClassified = 0
+    sumOfAllObjects = 0
+    for elem in classificationList:
+        sumOfCorrectlyClassified += elem.getListOfClassifiedCorrectly()
+        sumOfAllObjects += elem.getListOfClassified()
+    return sumOfCorrectlyClassified / sumOfAllObjects
+
+def getBalancedAccuracy(allClasses, classificationList):
+    fraction = 0
+    for elem in classificationList:
+        fraction += (elem.getListOfClassifiedCorrectly() / elem.getListOfClassified())
+    return fraction / len(allClasses)
+
 class NaiwnyKlasyfikatorBayesa():
     def main(self):
         fDec = open("result/dec_bayes.txt", "w+")
@@ -297,6 +311,12 @@ class NaiwnyKlasyfikatorBayesa():
         getTrnDecisions = getIndexOfDecision(australianTRN)
         countedParams = countParam(lines, getTrnDecisions, australianTRN)
         classified = numOfCorrectlyClassified(countedParams, getListDecisionsTST(lines), fDec)
+        globalAccuracy = getGlobalAccuracy(classified)
+        allClasses = unique(getListDecisionsTST(lines))
+        print("Global accuracy = " + str(globalAccuracy))
+        print("Balanced accuracy = " + str(getBalancedAccuracy(allClasses, classified)))
+        fAcc = open("result/acc_bayes.txt", "w+")
+        fAcc.write(f"Global accuracy = " + str(globalAccuracy) + "\nBalancedAccuracy = " + str(getBalancedAccuracy(allClasses, classified)))
 
 if __name__ == "__main__":
     NaiwnyKlasyfikatorBayesa.main("args")
